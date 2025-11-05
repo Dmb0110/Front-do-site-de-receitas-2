@@ -93,69 +93,71 @@
     <button id="btnSalvar" onclick="handleCriar()">Salvar Receita</button>
     <div id="loading" class="loading" style="display: none;">Salvando receita...</div>
   </div>
+<script>
+  // URL base da sua API hospedada na Vercel
+  const API_BASE = "https://beck-end-do-site-de-receitas.vercel.app";
 
-  <script>
-    const API_BASE = "https://beck-end-do-site-de-receitas.vercel.app/enviar";
+  async function criarReceita(dados) {
+    const token = localStorage.getItem("access_token");
 
-    async function criarReceita(dados) {
-      const token = localStorage.getItem("access_token");
+    if (!token) {
+      alert("Você precisa estar logado para cadastrar uma receita.");
+      return;
+    }
 
-      if (!token) {
-        alert("Você precisa estar logado para cadastrar uma receita.");
+    try {
+      const res = await fetch(`${API_BASE}/enviar`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(dados)
+      });
+
+      const result = await res.json();
+
+      if (!res.ok) {
+        alert(result.detail || "Erro ao salvar receita.");
         return;
       }
 
-      try {
-        const res = await fetch(`${API_BASE}/enviar`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-          body: JSON.stringify(dados)
-        });
+      alert("Receita cadastrada com sucesso!");
+      window.location.href = "index4.html";
+    } catch (error) {
+      alert("Erro de conexão com o servidor.");
+      console.error(error);
+    }
+  }
 
-        const result = await res.json();
+  async function handleCriar() {
+    const nome = document.getElementById("nome").value;
+    const ingredientes = document.getElementById("ingredientes").value;
+    const modo = document.getElementById("modo").value;
+    const btn = document.getElementById("btnSalvar");
+    const loading = document.getElementById("loading");
 
-        if (!res.ok) {
-          alert(result.detail || "Erro ao salvar receita.");
-          return;
-        }
-
-        alert("Receita cadastrada com sucesso!");
-        window.location.href = "index4.html";
-      } catch (error) {
-        alert("Erro de conexão com o servidor.");
-      }
+    if (!nome || !ingredientes || !modo) {
+      alert("Preencha todos os campos!");
+      return;
     }
 
-    async function handleCriar() {
-      const nome = document.getElementById("nome").value;
-      const ingredientes = document.getElementById("ingredientes").value;
-      const modo = document.getElementById("modo").value;
-      const btn = document.getElementById("btnSalvar");
-      const loading = document.getElementById("loading");
+    btn.disabled = true;
+    loading.style.display = "block";
 
-      if (!nome || !ingredientes || !modo) {
-        alert("Preencha todos os campos!");
-        return;
-      }
+    const novaReceita = {
+      nome_da_receita: nome,
+      ingredientes,
+      modo_de_preparo: modo
+    };
 
-      btn.disabled = true;
-      loading.style.display = "block";
+    await criarReceita(novaReceita);
 
-      const novaReceita = {
-        nome_da_receita: nome,
-        ingredientes,
-        modo_de_preparo: modo
-      };
+    btn.disabled = false;
+    loading.style.display = "none";
+  }
+</script>
 
-      await criarReceita(novaReceita);
-
-      btn.disabled = false;
-      loading.style.display = "none";
-    }
-  </script>
 
 </body>
 </html>
