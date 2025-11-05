@@ -1,7 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Receitas Do MasterChef</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -9,12 +12,13 @@
       box-sizing: border-box;
     }
 
-    body {
-      font-family: 'Quicksand', sans-serif;
+    html, body {
       margin: 0;
       padding: 0;
+      font-family: 'Quicksand', sans-serif;
       background-color: #fffaf4;
       color: #333;
+      overflow-x: hidden;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
@@ -30,7 +34,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: relative;
+      flex-wrap: wrap;
+      gap: 10px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
@@ -50,13 +55,13 @@
       padding: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
       z-index: 10;
-      }
+    }
 
     .menu-aberto {
       display: flex;
       flex-direction: column;
       gap: 10px;
-     }
+    }
 
     .menu-options button {
       background-color: #ff7043;
@@ -105,9 +110,11 @@
       content: "📌 ";
     }
 
-    .titulo-receita:hover {
+    .titulo-receita:hover,
+    .titulo-receita:focus {
       background-color: #ffcc80;
       transform: scale(1.02);
+      outline: 2px solid #ff7043;
     }
 
     .detalhes-receita {
@@ -166,6 +173,10 @@
       background-color: #e64a19;
     }
 
+    button:focus {
+      outline: 2px solid #ff7043;
+    }
+
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -181,6 +192,30 @@
       .receitas-container, #formulario {
         padding: 20px 10px;
       }
+
+      h2 {
+        font-size: 22px;
+      }
+
+      .titulo-receita {
+        font-size: 16px;
+        padding: 8px;
+      }
+
+      button {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      body {
+        font-size: 18px;
+      }
+
+      .receitas-container, #formulario {
+        max-width: 1000px;
+      }
     }
   </style>
 </head>
@@ -193,8 +228,8 @@
       <span class="menu-icon" onclick="toggleMenu()">☰</span>
     </div>
     <div class="menu-options" id="menu">
-        <button onclick="window.location.href='cadastrar.html'">Cadastrar Receita</button>
-      <button onclick="window.location.href='cad_usuario3.html'">Registrar-se
+      <button onclick="window.location.href='cadastrar.html'">Cadastrar Receita</button>
+      <button onclick="window.location.href='cad_usuario3.html'">Registrar-se</button>
       <button onclick="window.location.href='cad_usuario2.html'">Fazer Login</button>
     </div>
   </header>
@@ -260,6 +295,7 @@
       const itens = texto.split("\n").filter(i => i.trim() !== "");
       return `<ul>${itens.map(i => `<li>${i}</li>`).join("")}</ul>`;
     }
+                                                
 
     async function carregarReceitas() {
       const container = document.getElementById("lista-receitas");
@@ -284,6 +320,5 @@
 
 </body>
 </html>
-
 
 
