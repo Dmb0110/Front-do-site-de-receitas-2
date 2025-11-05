@@ -2,15 +2,21 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastrar Receita</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Quicksand', sans-serif;
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
       margin: 0;
       padding: 0;
+      font-family: 'Quicksand', sans-serif;
       background-color: #fffaf4;
       color: #333;
+      overflow-x: hidden;
     }
 
     header {
@@ -20,6 +26,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
@@ -43,6 +51,7 @@
     h2 {
       text-align: center;
       margin-bottom: 20px;
+      font-size: 28px;
     }
 
     input, textarea {
@@ -75,6 +84,40 @@
       font-size: 14px;
       color: #888;
     }
+
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 20px 15px;
+        margin: 20px 10px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+
+      input, textarea {
+        font-size: 15px;
+      }
+
+      button {
+        font-size: 15px;
+        padding: 8px 12px;
+      }
+
+      .voltar {
+        font-size: 16px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      body {
+        font-size: 18px;
+      }
+
+      .form-container {
+        max-width: 1000px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -93,71 +136,70 @@
     <button id="btnSalvar" onclick="handleCriar()">Salvar Receita</button>
     <div id="loading" class="loading" style="display: none;">Salvando receita...</div>
   </div>
-<script>
-  // URL base da sua API hospedada na Vercel
-  const API_BASE = "https://beck-end-do-site-de-receitas.vercel.app";
 
-  async function criarReceita(dados) {
-    const token = localStorage.getItem("access_token");
+  <script>
+    const API_BASE = "https://beck-end-do-site-de-receitas.vercel.app";
 
-    if (!token) {
-      alert("Você precisa estar logado para cadastrar uma receita.");
-      return;
-    }
+    async function criarReceita(dados) {
+      const token = localStorage.getItem("access_token");
 
-    try {
-      const res = await fetch(`${API_BASE}/enviar`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify(dados)
-      });
-
-      const result = await res.json();
-
-      if (!res.ok) {
-        alert(result.detail || "Erro ao salvar receita.");
+      if (!token) {
+        alert("Você precisa estar logado para cadastrar uma receita.");
         return;
       }
 
-      alert("Receita cadastrada com sucesso!");
-      window.location.href = "index.html";
-    } catch (error) {
-      alert("Erro de conexão com o servidor.");
-      console.error(error);
+      try {
+        const res = await fetch(`${API_BASE}/enviar`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify(dados)
+        });
+
+        const result = await res.json();
+
+        if (!res.ok) {
+          alert(result.detail || "Erro ao salvar receita.");
+          return;
+        }
+
+        alert("Receita cadastrada com sucesso!");
+        window.location.href = "index.html";
+      } catch (error) {
+        alert("Erro de conexão com o servidor.");
+        console.error(error);
+      }
     }
-  }
 
-  async function handleCriar() {
-    const nome = document.getElementById("nome").value;
-    const ingredientes = document.getElementById("ingredientes").value;
-    const modo = document.getElementById("modo").value;
-    const btn = document.getElementById("btnSalvar");
-    const loading = document.getElementById("loading");
+    async function handleCriar() {
+      const nome = document.getElementById("nome").value;
+      const ingredientes = document.getElementById("ingredientes").value;
+      const modo = document.getElementById("modo").value;
+      const btn = document.getElementById("btnSalvar");
+      const loading = document.getElementById("loading");
 
-    if (!nome || !ingredientes || !modo) {
-      alert("Preencha todos os campos!");
-      return;
+      if (!nome || !ingredientes || !modo) {
+        alert("Preencha todos os campos!");
+        return;
+      }
+
+      btn.disabled = true;
+      loading.style.display = "block";
+
+      const novaReceita = {
+        nome_da_receita: nome,
+        ingredientes,
+        modo_de_preparo: modo
+      };
+
+      await criarReceita(novaReceita);
+
+      btn.disabled = false;
+      loading.style.display = "none";
     }
-
-    btn.disabled = true;
-    loading.style.display = "block";
-
-    const novaReceita = {
-      nome_da_receita: nome,
-      ingredientes,
-      modo_de_preparo: modo
-    };
-
-    await criarReceita(novaReceita);
-
-    btn.disabled = false;
-    loading.style.display = "none";
-  }
-</script>
-
+  </script>
 
 </body>
 </html>
