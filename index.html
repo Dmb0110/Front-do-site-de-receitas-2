@@ -266,13 +266,13 @@
     }
 
     async function buscarReceitas() {
-      const res = await fetch(`${API_BASE}/receita/receber/`);
+      const res = await fetch(`${API_BASE}/receita/receber`);
       if (!res.ok) throw new Error("Erro ao buscar receitas");
       return await res.json();
     }
 
     async function criarReceita(dados) {
-      const res = await fetch(`${API_BASE}/receita/enviar/`, {
+      const res = await fetch(`${API_BASE}/receita/enviar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dados)
