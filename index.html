@@ -293,28 +293,30 @@
       const itens = texto.split("\n").filter(i => i.trim() !== "");
       return `<ul>${itens.map(i => `<li>${i}</li>`).join("")}</ul>`;
     }
-
+  
   async function carregarReceitas() {
-  const container = document.getElementById("lista-receitas");
-  container.innerHTML = "";
-  const receitas = await buscarReceitas();
+    const container = document.getElementById("lista-receitas");
+    container.innerHTML = "";
+    const receitas = await buscarReceitas();
 
-  receitas.forEach(r => {
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <div class="titulo-receita">${r.nome_da_receita}</div>
-      ${r.imagem_url ? `<img class="receita-foto" src="${r.imagem_url}" alt="${r.nome_da_receita}" />` : ""}
-      <div class="detalhes-receita" id="detalhes-${r.id}">
-        <strong>Ingredientes:</strong><br> ${formatarIngredientes(r.ingredientes)}<br>
-        <strong>Modo de preparo:</strong><br> ${r.modo_de_preparo}
-      </div>
-    `;
-    container.appendChild(div);
-  });
-}
+    receitas.forEach(r => {
+      console.log("Receita carregada:", r); // 👀 debug no console
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <div class="titulo-receita">${r.nome_da_receita}</div>
+        ${r.imagem_url ? `<img class="receita-foto" src="${r.imagem_url}" alt="${r.nome_da_receita}" />` : ""}
+        <div class="detalhes-receita" id="detalhes-${r.id}">
+          <strong>Ingredientes:</strong><br> ${formatarIngredientes(r.ingredientes)}<br>
+          <strong>Modo de preparo:</strong><br> ${r.modo_de_preparo}
+        </div>
+      `;
+      container.appendChild(div);
+    });
+  }
 
-    carregarReceitas();
-  </script>
+  carregarReceitas(); // chamada inicial
+</script>
+
 
 </body>
 </html>
