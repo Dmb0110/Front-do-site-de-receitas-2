@@ -269,7 +269,7 @@
     }
 
     async function criarReceita(dados) {
-      const res = await fetch(`${API_BASE}/receita/enviar`, {
+      const res = await fetch(`${API_BASE}/receita_auth/enviar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dados)
