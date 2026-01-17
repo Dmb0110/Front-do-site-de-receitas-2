@@ -2,330 +2,119 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Receitas Do MasterChef</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <title>Receitas</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html, body {
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fffaf4;
       margin: 0;
       padding: 0;
-      font-family: 'Quicksand', sans-serif;
-      background-color: #fffaf4;
-      color: #333;
-      overflow-x: hidden;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    .dark-mode {
-      background-color: #2c2c2c;
-      color: #f5f5f5;
-    }
-
-    header {
-      background-color: #ff7043;
-      color: white;
-      padding: 15px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .menu-icon {
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    .menu-options {
-      display: none;
-      position: absolute;
-      top: 60px;
-      right: 20px;
-      background-color: white;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      z-index: 10;
-    }
-
-    .menu-aberto {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .menu-options button {
-      background-color: #ff7043;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 8px 12px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .menu-options button:hover {
-      background-color: #e64a19;
     }
 
     .receitas-container {
-      padding: 30px 20px;
       max-width: 800px;
       margin: auto;
+      padding: 20px;
+      text-align: center;
     }
 
     h2 {
-      text-align: center;
       font-size: 28px;
       margin-bottom: 20px;
     }
 
-    h2::before {
-      content: "🍽️ ";
-    }
-
     .titulo-receita {
-      cursor: pointer;
       font-weight: bold;
-      font-size: 18px;
-      margin: 15px 0 5px;
-      padding: 10px;
-      background-color: #ffe0b2;
-      border-radius: 6px;
-      transition: background 0.3s, transform 0.2s ease;
-      animation: fadeInUp 0.5s ease;
-    }
-
-    .titulo-receita::before {
-      content: "📌 ";
-    }
-
-    .titulo-receita:hover,
-    .titulo-receita:focus {
-      background-color: #ffcc80;
-      transform: scale(1.02);
-      outline: 2px solid #ff7043;
-    }
-
-    .detalhes-receita {
-      display: none;
-      background-color: #fff3e0;
-      padding: 15px;
-      border-radius: 6px;
-      margin-bottom: 20px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    }
-
-    .dark-mode .titulo-receita {
-      background-color: #444;
-      color: #fff;
-    }
-
-    .dark-mode .detalhes-receita {
-      background-color: #555;
-    }
-
-    #formulario {
-      display: none;
-      padding: 30px 20px;
-      max-width: 800px;
-      margin: auto;
-      background-color: #fff3e0;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    #formulario h3 {
-      margin-bottom: 15px;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 12px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 14px;
-    }
-
-    button {
-      background-color: #ff7043;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 6px;
-      font-size: 16px;
+      font-size: 20px;
+      margin: 20px 0 10px;
       cursor: pointer;
-      transition: background 0.3s;
+      color: #ff7043;
     }
 
-    button:hover {
-      background-color: #e64a19;
+    .titulo-receita:hover {
+      text-decoration: underline;
     }
 
-    button:focus {
-      outline: 2px solid #ff7043;
+    .receita-foto {
+      max-width: 60%;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .receitas-container, #formulario {
-        padding: 20px 10px;
-      }
-
-      h2 {
-        font-size: 22px;
-      }
-
-      .titulo-receita {
-        font-size: 16px;
-        padding: 8px;
-      }
-
-      button {
-        font-size: 14px;
-        padding: 8px 12px;
-      }
-    }
-
-    @media (min-width: 1200px) {
-      body {
-        font-size: 18px;
-      }
-
-      .receitas-container, #formulario {
-        max-width: 1000px;
-      }
+    #detalhes-receita {
+      margin-top: 40px;
+      text-align: left;
+      background: #fff3e0;
+      padding: 20px;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>🍲 Receitas</h1>
-    <div>
-      <button onclick="toggleDarkMode()">🌙 Modo Escuro</button>
-      <span class="menu-icon" onclick="toggleMenu()">☰</span>
-    </div>
-    <div class="menu-options" id="menu">
-      <button onclick="window.location.href='cadastrar.html'">Cadastrar Receita</button>
-      <button onclick="window.location.href='cad_usuario3.html'">Registrar-se</button>
-      <button onclick="window.location.href='cad_usuario2.html'">Fazer Login</button>
-    </div>
-  </header>
-
   <div class="receitas-container">
     <h2>📚 Lista de Receitas</h2>
     <div id="lista-receitas"></div>
-  </div>
-    <!-- Receita 1 -->
-    <div class="titulo-receita">Bolo de Milho</div>
-    <img class="receita-foto" src="bolo-de-flocao-de-milho.jpg" alt="Bolo de Milho" style="max-width:35%; border-radius:8px; margin:10px 0;" />
 
-    <!-- Receita 2 -->
-    <div class="titulo-receita">Bife a Cavalo</div>
-    <img class="receita-foto" src="bife_cavalo.jpg" alt="Bife a Cavalo" style="max-width:35%; border-radius:8px; margin:10px 0;" />
-  </div>
-
-  <div id="formulario">
-    <h3>➕ Nova Receita</h3>
-    <input type="text" id="nome" placeholder="Nome da receita">
-    <textarea id="ingredientes" placeholder="Ingredientes (um por linha)"></textarea>
-    <textarea id="modo" placeholder="Modo de preparo"></textarea>
-    <button onclick="handleCriar()">Salvar</button>
+    <!-- Área para detalhes -->
+    <div id="detalhes-receita"></div>
   </div>
 
   <script>
     const API_BASE = "https://beck-end-do-site-de-receitas-vslw.vercel.app";
 
-    function toggleMenu() {
-      const menu = document.getElementById("menu");
-      menu.classList.toggle("menu-aberto");
-    }
-
-    function mostrarFormulario() {
-      document.getElementById("formulario").style.display = "block";
-      document.getElementById("menu").style.display = "none";
-    }
-
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark-mode");
-    }
-
+    // Função para buscar todas as receitas
     async function buscarReceitas() {
       const res = await fetch(`${API_BASE}/receita/receber`);
       if (!res.ok) throw new Error("Erro ao buscar receitas");
       return await res.json();
     }
 
-    async function criarReceita(dados) {
-      const res = await fetch(`${API_BASE}/receita_auth/enviar`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dados)
+    // Função para carregar receitas na lista
+    async function carregarReceitas() {
+      const container = document.getElementById("lista-receitas");
+      container.innerHTML = "";
+      const receitas = await buscarReceitas();
+
+      receitas.forEach(r => {
+        const div = document.createElement("div");
+        div.innerHTML = `
+          <div class="titulo-receita" onclick="mostrarDetalhes(${r.id})">
+            ${r.nome_da_receita}
+          </div>
+          ${r.imagem_url ? `<img class="receita-foto" src="${r.imagem_url}" alt="${r.nome_da_receita}" />` : ""}
+        `;
+        container.appendChild(div);
       });
-      if (!res.ok) throw new Error("Erro ao criar receita");
-      return await res.json();
     }
 
-    async function handleCriar() {
-      const nome = document.getElementById("nome").value;
-      const ingredientes = document.getElementById("ingredientes").value;
-      const modo = document.getElementById("modo").value;
+    // Função para mostrar detalhes da receita clicada
+    async function mostrarDetalhes(id) {
+      try {
+        const res = await fetch(`${API_BASE}/receita/${id}`);
+        if (!res.ok) throw new Error("Erro ao buscar receita");
+        const receita = await res.json();
 
-      const novaReceita = { nome_da_receita: nome, ingredientes, modo_de_preparo: modo };
-      await criarReceita(novaReceita);
-      document.getElementById("formulario").style.display = "none";
-      await carregarReceitas();
+        document.getElementById("detalhes-receita").innerHTML = `
+          <h2>${receita.nome_da_receita}</h2>
+          <img src="${receita.imagem_url}" alt="${receita.nome_da_receita}" class="receita-foto" />
+          <h3>Ingredientes</h3>
+          <ul>${receita.ingredientes.split("\n").map(i => `<li>${i}</li>`).join("")}</ul>
+          <h3>Modo de Preparo</h3>
+          <p>${receita.modo_de_preparo}</p>
+        `;
+      } catch (err) {
+        console.error(err);
+        alert("Erro ao carregar detalhes da receita");
+      }
     }
 
-    function formatarIngredientes(texto) {
-      const itens = texto.split("\n").filter(i => i.trim() !== "");
-      return `<ul>${itens.map(i => `<li>${i}</li>`).join("")}</ul>`;
-    }
-
-async function carregarReceitas() {
-  const container = document.getElementById("lista-receitas");
-  container.innerHTML = "";
-  const receitas = await buscarReceitas();
-
-  receitas.forEach(r => {
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <div class="titulo-receita">
-        <a href="receita.html?id=${r.id}" style="text-decoration:none; color:inherit;">
-          ${r.nome_da_receita}
-        </a>
-      </div>
-      ${r.imagem_url ? `<img class="receita-foto" src="${r.imagem_url}" alt="${r.nome_da_receita}" style="max-width:100%; border-radius:8px; margin:10px 0;" />` : ""}
-    `;
-    container.appendChild(div);
-  });
-}
-
-    
-
-  carregarReceitas(); // chamada inicial
-</script>
-
+    // Chamada inicial para carregar lista
+    carregarReceitas();
+  </script>
 
 </body>
 </html>
