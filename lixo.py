@@ -67,6 +67,136 @@
   </style>
 </head>
 <body>
+  <header>
+    <h1>Receitas</h1>
+  </header>
+  <div id="lista-receitas">Carregando receitas...</div>
+
+  <script>
+    async function carregarReceitas() {
+      const container = document.getElementById("lista-receitas");
+
+      try {
+        const response = await fetch("https://beck-end-do-site-de-receitas-2.onrender.com/receita/receber");
+
+        if (!response.ok) {
+          throw new Error("Erro na resposta da API: " + response.status);
+        }
+
+        const receitas = await response.json();
+
+        container.textContent = "";
+
+        if (!receitas || receitas.length === 0) {
+          container.textContent = "Nenhuma receita encontrada.";
+          return;
+        }
+
+        receitas.forEach(receita => {
+          const div = document.createElement("div");
+          div.className = "receita";
+
+          const titulo = document.createElement("h2");
+          titulo.textContent = receita.nome_da_receita || "Receita sem nome";
+          titulo.onclick = () => {
+            window.location.href = `receita.html?id=${receita.id}`;
+          };
+
+          const img = document.createElement("img");
+          if (receita.foto) {
+            img.src = receita.foto;
+            img.alt = receita.nome_da_receita;
+          } else {
+            img.src = "https://via.placeholder.com/300x200?text=Sem+Foto";
+            img.alt = "Sem foto";
+          }
+
+          div.appendChild(titulo);
+          div.appendChild(img);
+          container.appendChild(div);
+        });
+      } catch (error) {
+        console.error("Erro ao carregar receitas:", error);
+        container.textContent = "Não foi possível carregar as receitas. Tente novamente mais tarde.";
+      }
+    }
+
+    carregarReceitas();
+  </script>
+</body>
+</html>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Receitas</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    header {
+      background: #ff6f61;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    #lista-receitas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .receita {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .receita:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .receita h2 {
+      color: #ff6f61;
+      cursor: pointer;
+      margin-bottom: 10px;
+      font-size: 1.4rem;
+    }
+
+    .receita h2:hover {
+      text-decoration: underline;
+    }
+
+    .receita img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
   <h1>Receitas</h1>
   <div id="lista-de-receitas"></div>
 
