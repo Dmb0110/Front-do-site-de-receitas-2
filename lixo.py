@@ -1,11 +1,15 @@
 '''
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f869874 (ediçao do index)
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
   <title>Receitas Deliciosas</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -83,12 +87,146 @@
       background: #ff7043;
       color: white;
       margin-top: 30px;
+=======
+  <title>Receitas Do MasterChef</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background-color: #fffaf4;
+      color: #333;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .dark-mode {
+      background-color: #2c2c2c;
+      color: #f5f5f5;
+    }
+
+    header {
+      background-color: #ff7043;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .menu-icon {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .menu-options {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+
+    .menu-aberto {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .menu-options button {
+      background-color: #ff7043;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .menu-options button:hover {
+      background-color: #e64a19;
+    }
+
+    .receitas-container {
+      padding: 30px 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #ff7043;
+    }
+
+    h2::before { content: "🍽️ "; }
+
+    .receita-card {
+      background: #fff3e0;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 25px;
+      animation: fadeInUp 0.5s ease;
+      transition: transform 0.2s ease;
+    }
+
+    .receita-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .titulo-receita {
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #ff7043;
+      text-align: center;
+    }
+
+    .titulo-receita a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .titulo-receita a:hover {
+      color: #e64a19;
+    }
+
+    .receita-foto {
+      max-width: 70%;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      h2 { font-size: 22px; }
+      .titulo-receita { font-size: 18px; }
+>>>>>>> f869874 (ediçao do index)
     }
   </style>
 </head>
 <body>
 
   <header>
+<<<<<<< HEAD
     <h1>🍲 Receitas Deliciosas</h1>
   </header>
 
@@ -128,6 +266,58 @@
     }
 
     carregarReceitas();
+=======
+    <h1>🍲 Receitas</h1>
+    <div>
+      <button onclick="toggleDarkMode()">🌙 Modo Escuro</button>
+      <span class="menu-icon" onclick="toggleMenu()">☰</span>
+    </div>
+    <div class="menu-options" id="menu">
+      <button onclick="window.location.href='cadastrar.html'">Cadastrar Receita</button>
+      <button onclick="window.location.href='cad_usuario3.html'">Registrar-se</button>
+      <button onclick="window.location.href='cad_usuario2.html'">Fazer Login</button>
+    </div>
+  </header>
+
+  <div class="receitas-container">
+    <h2>📚 Lista de Receitas</h2>
+
+    <!-- Receita 1 -->
+    <div class="receita-card">
+      <div class="titulo-receita">
+        <a href="receita.html?id=50">Bolo de Milho</a>
+      </div>
+      <img class="receita-foto" src="imagens2/bolo-de-flocao-de-milho.jpg" alt="Bolo de Milho">
+    </div>
+
+    <!-- Receita 2 -->
+    <div class="receita-card">
+      <div class="titulo-receita">
+        <a href="receita.html?id=10">Bife a Cavalo</a>
+      </div>
+      <img class="receita-foto" src="imagens2/bife_cavalo.jpg" alt="Bife a Cavalo">
+    </div>
+  </div>
+
+    <!-- Receita 3 -->
+    <div class="receita-card">
+      <div class="titulo-receita">
+        <a href="receita.html?id=61">Bolo de Chocolate</a>
+      </div>
+      <img class="receita-foto" src="imagens2/bolo-de-chocolate-rapido-e-molhadinho-capa.png" alt="Bolo de chocolate">
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("menu");
+      menu.classList.toggle("menu-aberto");
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+    }
+>>>>>>> f869874 (ediçao do index)
   </script>
 
 </body>
@@ -140,6 +330,10 @@
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f869874 (ediçao do index)
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
