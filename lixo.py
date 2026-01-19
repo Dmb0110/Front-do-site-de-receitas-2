@@ -1,9 +1,83 @@
 '''
-<<<<<<< HEAD
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Receitas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .receita {
+      margin-bottom: 30px;
+    }
+    .receita h2 {
+      color: #2c3e50;
+      cursor: pointer;
+    }
+    .receita img {
+      max-width: 300px;
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Receitas</h1>
+  <div id="lista-receitas"></div>
+
+  <script>
+    async function carregarReceitas() {
+      try {
+        // Consome a rota GET da sua API
+        const response = await fetch("https://beck-end-do-site-de-receitas-2.onrender.com/receita/receber");
+        const receitas = await response.json();
+
+        const container = document.getElementById("lista-receitas");
+
+        receitas.forEach(receita => {
+          const div = document.createElement("div");
+          div.className = "receita";
+
+          // Nome da receita (clicável)
+          const titulo = document.createElement("h2");
+          titulo.textContent = receita.nome_da_receita;
+          titulo.onclick = () => {
+            // Redireciona para receita.html passando o ID da receita
+            window.location.href = `receita.html?id=${receita.id}`;
+          };
+
+          // Foto da receita
+          const img = document.createElement("img");
+          if (receita.foto) {
+            img.src = receita.foto;
+            img.alt = receita.nome_da_receita;
+          } else {
+            img.src = "https://via.placeholder.com/300x200?text=Sem+Foto";
+            img.alt = "Sem foto";
+          }
+
+          div.appendChild(titulo);
+          div.appendChild(img);
+          container.appendChild(div);
+        });
+      } catch (error) {
+        console.error("Erro ao carregar receitas:", error);
+      }
+    }
+
+    carregarReceitas();
+  </script>
+</body>
+</html>
 
 
-=======
->>>>>>> f869874 (ediçao do index)
+
+
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -87,7 +161,7 @@
       background: #ff7043;
       color: white;
       margin-top: 30px;
-=======
+
   <title>Receitas Do MasterChef</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -219,14 +293,14 @@
     @media (max-width: 600px) {
       h2 { font-size: 22px; }
       .titulo-receita { font-size: 18px; }
->>>>>>> f869874 (ediçao do index)
+
     }
   </style>
 </head>
 <body>
 
   <header>
-<<<<<<< HEAD
+
     <h1>🍲 Receitas Deliciosas</h1>
   </header>
 
@@ -266,7 +340,7 @@
     }
 
     carregarReceitas();
-=======
+
     <h1>🍲 Receitas</h1>
     <div>
       <button onclick="toggleDarkMode()">🌙 Modo Escuro</button>
@@ -329,11 +403,6 @@
 
 
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> f869874 (ediçao do index)
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
