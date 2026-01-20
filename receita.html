@@ -1,164 +1,310 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detalhes da Receita</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Receita - Masterchef</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fffaf4;
-      color: #333;
-      overflow-x: hidden;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    body {
-      padding: 30px;
-      max-width: 800px;
-      margin: auto;
-    }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
 
-    h2 {
-      color: #ff7043;
-      margin-bottom: 20px;
-      font-size: 28px;
-      text-align: center;
-    }
+        .voltar-btn {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
 
-    h3 {
-      font-size: 20px;
-      margin-top: 30px;
-    }
+        .voltar-btn:hover {
+            background: #f0f0f0;
+            transform: translateX(-5px);
+        }
 
-    ul {
-      padding-left: 20px;
-      margin-bottom: 30px;
-    }
+        .receita-detail {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            animation: slideUp 0.5s ease-out;
+        }
 
-    li {
-      margin-bottom: 8px;
-      font-size: 16px;
-    }
+        .receita-foto-grande {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: white;
+            font-size: 1.2em;
+        }
 
-    .modo-preparo {
-      background-color: #fff3e0;
-      padding: 15px;
-      border-radius: 6px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-      font-size: 16px;
-      line-height: 1.6;
-    }
+        .receita-foto-grande img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-    a {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: #ff7043;
-      text-decoration: none;
-      font-size: 16px;
-    }
+        .receita-content {
+            padding: 40px;
+        }
 
-    a:hover {
-      text-decoration: underline;
-    }
+        .receita-nome {
+            font-size: 2.2em;
+            color: #333;
+            margin-bottom: 30px;
+            word-break: break-word;
+        }
 
-    @media (max-width: 600px) {
-      body {
-        padding: 20px 15px;
-      }
+        .section {
+            margin-bottom: 30px;
+        }
 
-      h2 {
-        font-size: 22px;
-      }
+        .section-title {
+            font-size: 1.5em;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
 
-      h3 {
-        font-size: 18px;
-      }
+        .section-content {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.05em;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
 
-      li, .modo-preparo, a {
-        font-size: 15px;
-      }
-    }
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.2em;
+            padding: 60px 20px;
+        }
 
-    @media (min-width: 1200px) {
-      body {
-        max-width: 1000px;
-        font-size: 18px;
-      }
-    }
-  </style>
+        .spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #ff6b6b;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .receita-foto-grande {
+                height: 250px;
+            }
+
+            .receita-content {
+                padding: 20px;
+            }
+
+            .receita-nome {
+                font-size: 1.6em;
+            }
+
+            .section-title {
+                font-size: 1.2em;
+            }
+        }
+    </style>
 </head>
 <body>
+    <script src="config.js"></script>
+    
+    <div class="container">
+        <button class="voltar-btn" onclick="voltarParaHome()">← Voltar</button>
 
-  <a href="javascript:history.back()">← Voltar</a>
-  <h2 id="titulo-receita">Receita</h2>
-  <h3>Ingredientes</h3>
-  <ul id="lista-ingredientes"></ul>
-  <h3>Modo de Preparo</h3>
-  <div class="modo-preparo" id="modo-preparo"></div>
+        <div id="erro" class="error" style="display: none;"></div>
 
-  <script>
-  const API_BASE = "https://beck-end-do-site-de-receitas-2.onrender.com";
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Carregando receita...</p>
+        </div>
 
-  function getIdFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get("id");
-  }
+        <div id="receita-container" style="display: none;"></div>
+    </div>
 
-  async function buscarReceitaPorId(receita_id) {
-    const res = await fetch(`${API_BASE}/receita/especifico/${receita_id}`);
-    if (!res.ok) throw new Error("Erro ao buscar receita");
-    return await res.json();
-  }
+    <script>
+        // Usar configuração centralizada
+        const API_URL = getApiUrl('RECEITA_ESPECIFICA');
 
-  async function carregarDetalhes() {
-    const id = getIdFromURL();
-    if (!id) {
-      document.getElementById("titulo-receita").textContent = "Receita não encontrada";
-      return;
-    }
+        async function carregarReceita() {
+            try {
+                const receitaId = localStorage.getItem('receitaId');
+                const nomeDaReceita = localStorage.getItem('nomeDaReceita');
 
-    try {
-      const receita = await buscarReceitaPorId(id);
+                if (!receitaId) {
+                    throw new Error('ID da receita não encontrado no localStorage');
+                }
 
-      document.getElementById("titulo-receita").textContent = receita.nome_da_receita;
+                const loading = document.getElementById('loading');
+                const container = document.getElementById('receita-container');
+                const erroDiv = document.getElementById('erro');
 
-      // Ingredientes (aceita vírgula ou quebra de linha)
-      const ingredientes = receita.ingredientes
-        .split(/\r?\n|,/)
-        .map(i => i.trim())
-        .filter(i => i !== "");
-      const lista = document.getElementById("lista-ingredientes");
-      lista.innerHTML = "";
-      ingredientes.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = item;
-        lista.appendChild(li);
-      });
+                loading.style.display = 'block';
+                erroDiv.style.display = 'none';
 
-      // Modo de preparo formatado
-      const modoFormatado = receita.modo_de_preparo
-        .split(".")
-        .map(frase => frase.trim())
-        .filter(frase => frase !== "")
-        .map(frase => frase + ".")
-        .join("<br>");
+                console.log('🔄 Carregando receita ID:', receitaId);
 
-      document.getElementById("modo-preparo").innerHTML = modoFormatado;
-    } catch (err) {
-      document.getElementById("titulo-receita").textContent = "Erro ao carregar receita";
-      console.error(err);
-    }
-  }
+                const url = `${API_URL}/${receitaId}`;
+                console.log('📍 URL:', url);
 
-  carregarDetalhes();
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    mode: 'cors',
+                    credentials: 'omit'
+                });
 
-  </script>
+                console.log('📊 Response status:', response.status);
 
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Status ${response.status}: ${errorText || response.statusText}`);
+                }
+
+                const receita = await response.json();
+                console.log('✅ Receita carregada:', receita);
+
+                loading.style.display = 'none';
+
+                let fotoHTML = `<span>📷 Sem foto</span>`;
+                if (receita.foto) {
+                    console.log(`📸 Foto recebida:`, receita.foto);
+                    // Construir a URL da foto
+                    let fotoSrc;
+                    if (receita.foto.startsWith('data:')) {
+                        // Se for base64
+                        fotoSrc = receita.foto;
+                    } else if (receita.foto.startsWith('http')) {
+                        // Se for URL completa
+                        fotoSrc = receita.foto;
+                    } else {
+                        // Se for apenas o nome do arquivo, servir do uploads
+                        fotoSrc = `/uploads/${receita.foto}`;
+                    }
+                    fotoHTML = `<img src="${fotoSrc}" alt="${receita.nome_da_receita}" onerror="this.parentElement.innerHTML='<span>🖼️ Foto indisponível</span>'">`;
+                } else {
+                    console.log(`📸 Nenhuma foto nesta receita`);
+                }
+
+                container.innerHTML = `
+                    <div class="receita-detail">
+                        <div class="receita-foto-grande">
+                            ${fotoHTML}
+                        </div>
+                        <div class="receita-content">
+                            <h1 class="receita-nome">${receita.nome_da_receita}</h1>
+
+                            <div class="section">
+                                <h2 class="section-title">🥘 Ingredientes</h2>
+                                <div class="section-content">${receita.ingredientes}</div>
+                            </div>
+
+                            <div class="section">
+                                <h2 class="section-title">👨‍🍳 Modo de Preparo</h2>
+                                <div class="section-content">${receita.modo_de_preparo}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.style.display = 'block';
+
+            } catch (error) {
+                console.error('❌ Erro ao carregar receita:', error);
+                const loading = document.getElementById('loading');
+                const erroDiv = document.getElementById('erro');
+
+                loading.style.display = 'none';
+                erroDiv.style.display = 'block';
+                
+                let mensagemErro = `❌ Erro ao carregar receita:\n\n${error.message}`;
+                
+                if (error.message.includes('Failed to fetch')) {
+                    mensagemErro += '\n\n⚠️ A API não está respondendo. Verifique:';
+                    mensagemErro += '\n✓ Se o servidor está rodando em http://localhost:8000';
+                    mensagemErro += '\n✓ Se há problemas de rede/firewall';
+                }
+                
+                erroDiv.textContent = mensagemErro;
+                erroDiv.style.whiteSpace = 'pre-wrap';
+            }
+        }
+
+        function voltarParaHome() {
+            // Limpar localStorage
+            localStorage.removeItem('receitaId');
+            localStorage.removeItem('nomeDaReceita');
+
+            console.log('⏪ Voltando para home');
+            
+            // Redirecionar para home
+            window.location.href = 'index.html';
+        }
+
+        // Carregar receita quando a página abrir
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 Página de detalhes carregada');
+            carregarReceita();
+        });
+    </script>
 </body>
 </html>
