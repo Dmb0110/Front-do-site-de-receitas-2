@@ -419,7 +419,8 @@
                             fotoSrc = receita.foto;
                         } else {
                             // Se for apenas o nome do arquivo, servir do uploads
-                            fotoSrc = `/uploads/${receita.foto}`;
+                            fotoSrc = getFotoUrl(receita.foto);
+                            //fotoSrc = `/uploads/${receita.foto}`;
                         }
                         fotoHTML = `<img src="${fotoSrc}" alt="${receita.nome_da_receita}" onerror="this.parentElement.innerHTML='<span>🖼️ Foto indisponível</span>'">`;
                     } else {
